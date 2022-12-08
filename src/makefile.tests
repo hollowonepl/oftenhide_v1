@@ -1,0 +1,25 @@
+#makefile
+
+include makefile.options
+
+%.osx: %.cpp
+	$(CPP) $(CPP_INCLUDES) $(CPP_LIBS) libushinegfx.a $< -o $@
+
+all: tests
+
+#ALL TESTS SOURCE FILES ###############################################
+TESTS_DIR = _tests
+TESTS_SRCS  = $(shell find $(TESTS_DIR) -name '*.cpp')
+TESTS_OBJ   = $(patsubst %.cpp,%.o,$(TESTS_SRCS))
+TESTS_OUT   = $(patsubst %.cpp,%.osx,$(TESTS_SRCS))
+#################################################################################
+tests: $(TESTS_OUT)
+	mv $(TESTS_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+clean:
+	rm $(RESOURCES)/*.osx 
+
+help:
+	@echo "make clean"
+	@echo "make tests"

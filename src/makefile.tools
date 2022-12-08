@@ -1,0 +1,32 @@
+#makefile
+
+CPP = clang++ -std=c++1z -O3 -mmacosx-version-min=10.10 -DMAKEBUILD
+CPP_INCLUDES = -I.
+CPP_LIBS = libushinegfx.a
+CPP_CONLY = -c
+
+DROP_DIR = ../dist/
+
+%.o: %.cpp
+	$(CPP) $(CPP_INCLUDES) $(CPP_ONLY) $< -o $@
+%.osx: %.cpp
+	$(CPP) $(CPP_INCLUDES) $(CPP_LIBS) $< -o $@
+
+all: tools
+
+#ALL TOOLS SOURCE FILES ###############################################
+TOOLS_DIR = tools
+TOOLS_SRCS  = $(shell find $(TOOLS_DIR) -name '*.cpp')
+TOOLS_OBJ   = $(patsubst %.cpp,%.o,$(TOOLS_SRCS))
+TOOLS_OUT   = $(patsubst %.cpp,%.osx,$(TOOLS_SRCS))
+#################################################################################
+tools: $(TOOLS_OUT)
+	mv $(TOOLS_DIR)/*.osx $(DROP_DIR)
+#################################################################################
+
+clean:
+	rm $(DROP_DIR)/*.osx 
+
+help:
+	@echo "make -f makefile.tools clean"
+	@echo "make -f makefile.tools"

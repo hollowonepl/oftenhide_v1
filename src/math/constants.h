@@ -1,0 +1,8 @@
+#ifndef USHINE_MATH_CONSTANTS_H
+#define USHINE_MATH_CONSTANTS_H
+
+namespace ushine::math {
+  constexpr float pi = 3.14159265358979323846264338327950288419716939937510L;
+}
+
+#endif

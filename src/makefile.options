@@ -1,0 +1,14 @@
+#makefile
+
+CPP = clang++ -std=c++1z -O3 -mmacosx-version-min=10.10 -DMAKEBUILD
+CPP_INCLUDES = -I. -I./dependencies -F/Library/Frameworks
+CPP_LIBS = ../vendor/m1/libSDL2.dylib ../vendor/m1/libpng16.dylib ../vendor/m1/libbass.dylib -framework CoreFoundation 
+CPP_CONLY = -c
+
+RESOURCES = ../resources
+
+%.o: %.cpp
+	$(CPP) $(CPP_INCLUDES) $(CPP_CONLY) $< -o $@
+
+help_options:
+	@echo "make clean"

@@ -1,0 +1,96 @@
+#makefile
+
+include makefile.options
+
+%.osx: %.cpp
+	$(CPP) $(CPP_INCLUDES) $(CPP_LIBS) libushinegfx.a $< -o $@ 
+
+all: planar_effects blobs noise other particles planar_effects voxels zoom
+
+
+#BLOBS (EXPERIMENTS) SOURCE FILES ###############################################
+EFFECTS_BLOBS_DIR = _effects/blobs
+EFFECTS_BLOBS_SRCS  = $(shell find $(EFFECTS_BLOBS_DIR) -name '*.cpp')
+EFFECTS_BLOBS_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_BLOBS_SRCS))
+EFFECTS_BLOBS_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_BLOBS_SRCS))
+#################################################################################
+blobs: $(EFFECTS_BLOBS_OUT)
+	mv $(EFFECTS_BLOBS_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#NOISE (EXPERIMENTS) SOURCE FILES ###############################################
+EFFECTS_NOISE_DIR = _effects/noise
+EFFECTS_NOISE_SRCS  = $(shell find $(EFFECTS_NOISE_DIR) -name '*.cpp')
+EFFECTS_NOISE_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_NOISE_SRCS))
+EFFECTS_NOISE_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_NOISE_SRCS))
+#################################################################################
+noise: $(EFFECTS_NOISE_OUT)
+	mv $(EFFECTS_NOISE_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#OTHER (EXPERIMENTS) SOURCE FILES ###############################################
+EFFECTS_OTHER_DIR = _effects/other
+EFFECTS_OTHER_SRCS  = $(shell find $(EFFECTS_OTHER_DIR) -name '*.cpp')
+EFFECTS_OTHER_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_OTHER_SRCS))
+EFFECTS_OTHER_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_OTHER_SRCS))
+#################################################################################
+other: $(EFFECTS_OTHER_OUT)
+	mv $(EFFECTS_OTHER_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#PARTICLES (EXPERIMENTS) SOURCE FILES ###########################################
+EFFECTS_PARTICLES_DIR = _effects/particles
+EFFECTS_PARTICLES_SRCS  = $(shell find $(EFFECTS_PARTICLES_DIR) -name '*.cpp')
+EFFECTS_PARTICLES_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_PARTICLES_SRCS))
+EFFECTS_PARTICLES_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_PARTICLES_SRCS))
+#################################################################################
+particles: $(EFFECTS_PARTICLES_OUT)
+	mv $(EFFECTS_PARTICLES_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#PLANAR EFFECTS (EXPERIMENTS) SOURCE FILES ######################################
+EFFECTS_PLANAR_DIR = _effects/planar
+EFFECTS_PLANAR_SRCS  = $(shell find $(EFFECTS_PLANAR_DIR) -name '*.cpp')
+EFFECTS_PLANAR_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_PLANAR_SRCS))
+EFFECTS_PLANAR_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_PLANAR_SRCS))
+#################################################################################
+planar_effects: $(EFFECTS_PLANAR_OUT)
+	mv $(EFFECTS_PLANAR_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#RAYMARCH (EXPERIMENTS) SOURCE FILES ############################################
+#EFFECTS_RAYMARCH_DIR = _effects/raymarch
+#EFFECTS_RAYMARCH_SRCS  = $(shell find $(EFFECTS_RAYMARCH_DIR) -name '*.cpp')
+#EFFECTS_RAYMARCH_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_RAYMARCH_SRCS))
+#EFFECTS_RAYMARCH_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_RAYMARCH_SRCS))
+#################################################################################
+#raymarching: $(EFFECTS_RAYMARCH_OUT)
+#	mv $(EFFECTS_RAYMARCH_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#VOXELS (EXPERIMENTS) SOURCE FILES ############################################
+EFFECTS_VOXELS_DIR = _effects/voxels
+EFFECTS_VOXELS_SRCS  = $(shell find $(EFFECTS_VOXELS_DIR) -name '*.cpp')
+EFFECTS_VOXELS_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_VOXELS_SRCS))
+EFFECTS_VOXELS_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_VOXELS_SRCS))
+#################################################################################
+voxels: $(EFFECTS_VOXELS_OUT)
+	mv $(EFFECTS_VOXELS_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+#ZOOM (EXPERIMENTS) SOURCE FILES ############################################
+EFFECTS_ZOOM_DIR = _effects/zoom
+EFFECTS_ZOOM_SRCS  = $(shell find $(EFFECTS_ZOOM_DIR) -name '*.cpp')
+EFFECTS_ZOOM_OBJ   = $(patsubst %.cpp,%.o,$(EFFECTS_ZOOM_SRCS))
+EFFECTS_ZOOM_OUT   = $(patsubst %.cpp,%.osx,$(EFFECTS_ZOOM_SRCS))
+#################################################################################
+zoom: $(EFFECTS_ZOOM_OUT)
+	mv $(EFFECTS_ZOOM_DIR)/*.osx $(RESOURCES)
+#################################################################################
+
+clean:
+	rm $(RESOURCES)/*.osx 
+
+help:
+	@echo "make clean"
+	@echo "make planar_effects blobs"

@@ -1,0 +1,31 @@
+#makefile
+
+CPP = clang++ -std=c++1z -O3 -mmacosx-version-min=10.10 -DMAKEBUILD
+CPP_INCLUDES = -I. -I./dependencies -F/Library/Frameworks
+CPP_LIBS =  ../vendor/m1/libSDL2.dylib ../vendor/m1/libpng16.dylib ../vendor/m1/libbass.dylib -framework CoreFoundation
+CPP_CONLY = -c
+
+DROP_FOLDER = ../dist/rw2018.memoryremains
+
+#RW 2018 SOURCE FILES BUNDLING
+################################################################
+RW2018_DEMO_SRCS    = $(shell find demos/rw2018 -name '*.cpp')
+RW2018_DEMO_OBJS    = $(patsubst %.cpp,%.o,$(RW2018_DEMO_SRCS))
+################################################################
+
+all: rw2018
+
+rw2018 : ${DROP_FOLDER}/demo.riverwash2018
+
+${DROP_FOLDER}/demo.riverwash2018: ${RW2018_DEMO_OBJS} libushinegfx.a
+	$(CPP) $(CPP_LIBS) -o $@ ${RW2018_DEMO_OBJS} libushinegfx.a
+
+%.o: %.cpp
+	$(CPP) $(CPP_INCLUDES) $(CPP_CONLY) $< -o $@
+
+clean:
+	rm -f demos/rw2018/*.o
+
+help:
+	@echo "make clean"
+	@echo "make rw2018"

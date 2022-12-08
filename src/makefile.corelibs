@@ -1,0 +1,38 @@
+#makefile
+
+include makefile.options
+
+#USHINE LIBRARIES _SCOPE_DEFINITIONS_
+USHINE_CORE_SRCS    = $(shell find core -name '*.cpp')
+USHINE_CORE_OBJS    = $(patsubst %.cpp,%.o,$(USHINE_CORE_SRCS))
+USHINE_CORE_LIB	= core/ushine_core.lib
+
+USHINE_IO_SRCS    = $(shell find io -name '*.cpp')
+USHINE_IO_OBJS    = $(patsubst %.cpp,%.o,$(USHINE_IO_SRCS))
+USHINE_IO_LIB	= 	io/ushine_io.a
+
+USHINE_RENDERER_SRCS    = $(shell find renderer -name '*.cpp')
+USHINE_RENDERER_OBJS    = $(patsubst %.cpp,%.o,$(USHINE_RENDERER_SRCS))
+USHINE_RENDERER_LIB	= 	renderer/ushine_renderer.a
+######
+
+all: libushinegfx.a
+
+libushinegfx.a: ushine_core ushine_io ushine_renderer
+	ar rcs libushinegfx.a ${USHINE_CORE_OBJS} ${USHINE_IO_OBJS} ${USHINE_RENDERER_OBJS}
+
+ushine_core: $(USHINE_CORE_OBJS)
+
+ushine_io: $(USHINE_IO_OBJS)
+
+ushine_renderer: $(USHINE_RENDERER_OBJS)
+
+clean:
+	rm -f core/*.o
+	rm -f renderer/*.o
+	rm -f io/*.o
+	rm -f libushinegfx.a
+
+help:
+	@echo "make ushine_core"
+	@echo "make clean_ushine_core"
