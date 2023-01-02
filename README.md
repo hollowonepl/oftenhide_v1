@@ -29,8 +29,8 @@ Whole project is more GCC/MINGW friendly than other compilers to be used to retr
 
 ## Prerequisites:
 
-- libpng15: available in ./Frameworks folder for MacOS, on Windows it needs to be manually added to the stack
-- libSDL2: available in ./Frameworks folder for MacOS, on Windows it needs to be manually added to the stack
+- libpng15: available in ./vendors folder for MacOS, on Windows it needs to be manually added to the stack
+- libSDL2: available in ./vendors folder for MacOS, on Windows it needs to be manually added to the stack
 - libBASS: available in ./vendors folder considering both MacOS and Windows consumptions (both versions of the binary dlls are placed there)
 
 ## Example compilations
